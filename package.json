@@ -1,0 +1,73 @@
+{
+    "name": "thinkable",
+    "version": "0.0.0",
+    "description": "Helpers for testing RethinkDB apps with AVA",
+    "homepage": "https://github.com/sholladay/thinkable",
+    "main": "index.js",
+    "author": {
+        "name": "Seth Holladay",
+        "url": "https://seth-holladay.com",
+        "email": "me@seth-holladay.com"
+    },
+    "scripts": {
+        "test": "xo && ava"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:sholladay/thinkable.git"
+    },
+    "bugs": {
+        "url": "https://github.com/sholladay/thinkable/issues",
+        "email": "me@seth-holladay.com"
+    },
+    "engines": {
+        "node": ">=8"
+    },
+    "license": "MPL-2.0",
+    "files": [
+        "index.js"
+    ],
+    "dependencies": {
+        "execa": "^0.10.0",
+        "is-path-inside": "^1.0.1",
+        "joi": "^13.1.2",
+        "mkdirtemp": "^1.1.0",
+        "p-event": "^1.3.0",
+        "rimraf": "^2.6.2"
+    },
+    "devDependencies": {
+        "ava": "^1.0.0-beta.3",
+        "eslint-config-tidy": "^0.6.2",
+        "rethinkdb": "^2.3.3",
+        "xo": "^0.20.3"
+    },
+    "keywords": [
+        "ava",
+        "helper",
+        "util",
+        "utility",
+        "utilities",
+        "tool",
+        "tooling",
+        "test",
+        "testing",
+        "rethink",
+        "rethinkdb",
+        "db",
+        "database"
+    ],
+    "xo": {
+        "extend": "tidy",
+        "rules": {
+            "id-length": [
+                "error",
+                {
+                    "exceptions": [
+                        "r",
+                        "t"
+                    ]
+                }
+            ]
+        }
+    }
+}
