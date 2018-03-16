@@ -1,6 +1,6 @@
 {
     "name": "thinkable",
-    "version": "0.0.0",
+    "version": "0.1.0",
     "description": "Helpers for testing RethinkDB apps with AVA",
     "homepage": "https://github.com/sholladay/thinkable",
     "main": "index.js",
