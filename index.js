@@ -20,12 +20,12 @@ const pathExists = (filepath) => {
     });
 };
 
-const isUsablePath = (filepath) => {
+const isSafePath = (filepath) => {
     return isPathInside(filepath, process.cwd()) || isPathInside(filepath, os.tmpdir());
 };
 
 const del = async (filepath) => {
-    if (!isUsablePath(filepath)) {
+    if (!isSafePath(filepath)) {
         throw new Error(`Refusing to delete file outside of the cwd: ${filepath}`);
     }
     await rimraf(filepath, { glob : false });
@@ -45,8 +45,9 @@ const init = (seed, option) => {
     }
 
     return async (t) => {
-        cwd = path.resolve(config.cwd || await mkdirtemp());
-        if (!isUsablePath(cwd)) {
+        const ephemeralDir = await mkdirtemp();
+        cwd = path.resolve(config.cwd || ephemeralDir);
+        if (!isSafePath(cwd)) {
             throw new Error(`Refusing to use a directory outside of the cwd: ${cwd}`);
         }
         if (config.cwd && await pathExists(config.cwd)) {
@@ -71,7 +72,7 @@ const init = (seed, option) => {
             filter(chunk) {
                 buffered += chunk.toString('utf8');
                 if (!port) {
-                    const matches = buffered.match(/Listening for client driver connections on port (\d+)/);
+                    const matches = buffered.match(/Listening for client driver connections on port (\d+)/u);
                     if (matches && matches[1]) {
                         port = Number.parseInt(matches[1], 10);
                     }
