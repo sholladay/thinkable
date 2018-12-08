@@ -47,13 +47,29 @@ test('does some stuff', async (t) => {
 
 ## API
 
-### init(seed)
+### init(seed, option)
 
 Returns an async function that is meant to be passed as `fn` to AVA's `test.before(fn)`. The returned function, when called, starts and seeds the database.
 
 ### cleanup()
 
 Stops the database and cleans up its data.
+
+#### option
+
+Type: `object`
+
+##### cwd
+
+Type: `string`
+
+A path where the RethinkDB data directory should be created.
+
+##### password
+
+Type: `string`
+
+An initial password for the `admin` user.
 
 ## Contributing
 
