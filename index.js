@@ -108,9 +108,18 @@ const init = (seed, option) => {
     };
 };
 const restore = async (option) => {
-    const filepath = await tempWrite(option.password);
-    console.log('Restoring data from skeleton.tar.gz');
-    await execa('rethinkdb', ['restore', option.dump, '--password-file', filepath, '--connect', `localhost:${option.port}`]);
+    const config = joi.attempt({ ...option }, joi.object().required().keys({
+        port     : joi.number().required(),
+        dump     : joi.string().required(),
+        password : joi.string().required()
+    }));
+
+    const filepath = await tempWrite(config.password);
+    const args = ['restore', option.dump, '--password-file', filepath, '--connect', `localhost:${config.port}`];
+
+    await execa('rethinkdb', args, {
+        preferLocal : false
+    });
 };
 
 const cleanup = async () => {
