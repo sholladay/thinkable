@@ -9,6 +9,7 @@ const r = require('rethinkdb');
 const execa = require('execa');
 const pEvent = require('p-event');
 const mkdirtemp = require('mkdirtemp');
+const tempWrite = require('temp-write');
 const isPathInside = require('is-path-inside');
 const rimraf = util.promisify(require('rimraf'));
 
@@ -102,11 +103,16 @@ const init = (seed, option) => {
                 }));
             }));
         }));
-
         r.net.Connection.prototype.DEFAULT_PORT = port;
         t.context.dbPort = port;
     };
 };
+const restore = async (option) => {
+    const filepath = await tempWrite(option.password);
+    console.log('Restoring data from skeleton.tar.gz');
+    await execa('rethinkdb', ['restore', option.dump, '--password-file', filepath, '--connect', `localhost:${option.port}`]);
+};
+
 const cleanup = async () => {
     if (server) {
         server.kill();
@@ -116,5 +122,6 @@ const cleanup = async () => {
 
 module.exports = {
     init,
+    restore,
     cleanup
 };

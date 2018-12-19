@@ -33,7 +33,8 @@
         "joi": "^14.3.0",
         "mkdirtemp": "^1.1.0",
         "p-event": "^2.1.0",
-        "rimraf": "^2.6.2"
+        "rimraf": "^2.6.2",
+        "temp-write": "^3.4.0"
     },
     "devDependencies": {
         "ava": "^1.0.0-rc.2",
