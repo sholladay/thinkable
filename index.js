@@ -109,14 +109,19 @@ const init = (seed, option) => {
 };
 const restore = async (option) => {
     const config = joi.attempt({ ...option }, joi.object().required().keys({
-        port     : joi.number().required(),
+        port     : joi.number().optional(),
         dump     : joi.string().required(),
-        password : joi.string().required()
+        password : joi.string().optional()
     }));
 
-    const filepath = await tempWrite(config.password);
-    const args = ['restore', config.dump, '--password-file', filepath, '--connect', `localhost:${config.port}`];
-
+    const args = ['restore', config.dump];
+    if (config.password) {
+        const filepath = await tempWrite(config.password);
+        args.push('--password-file', filepath);
+    }
+    if (config.port) {
+        args.push('--connect', `localhost:${config.port}`);
+    }
     await execa('rethinkdb', args, {
         preferLocal : false
     });
