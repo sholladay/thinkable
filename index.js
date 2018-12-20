@@ -115,7 +115,7 @@ const restore = async (option) => {
     }));
 
     const filepath = await tempWrite(config.password);
-    const args = ['restore', option.dump, '--password-file', filepath, '--connect', `localhost:${config.port}`];
+    const args = ['restore', config.dump, '--password-file', filepath, '--connect', `localhost:${config.port}`];
 
     await execa('rethinkdb', args, {
         preferLocal : false
