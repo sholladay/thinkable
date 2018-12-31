@@ -9,6 +9,7 @@ const r = require('rethinkdb');
 const execa = require('execa');
 const pEvent = require('p-event');
 const mkdirtemp = require('mkdirtemp');
+const tempWrite = require('temp-write');
 const isPathInside = require('is-path-inside');
 const rimraf = util.promisify(require('rimraf'));
 
@@ -102,11 +103,30 @@ const init = (seed, option) => {
                 }));
             }));
         }));
-
         r.net.Connection.prototype.DEFAULT_PORT = port;
         t.context.dbPort = port;
     };
 };
+const restore = async (option) => {
+    const config = joi.attempt({ ...option }, joi.object().required().keys({
+        port     : joi.number().optional(),
+        dump     : joi.string().required(),
+        password : joi.string().optional()
+    }));
+
+    const args = ['restore', config.dump];
+    if (config.password) {
+        const filepath = await tempWrite(config.password);
+        args.push('--password-file', filepath);
+    }
+    if (config.port) {
+        args.push('--connect', `localhost:${config.port}`);
+    }
+    await execa('rethinkdb', args, {
+        preferLocal : false
+    });
+};
+
 const cleanup = async () => {
     if (server) {
         server.kill();
@@ -116,5 +136,6 @@ const cleanup = async () => {
 
 module.exports = {
     init,
+    restore,
     cleanup
 };
