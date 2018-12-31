@@ -27,6 +27,9 @@
     "files": [
         "index.js"
     ],
+    "peerDependency": {
+        "rethinkdb": "^2.0.0"
+    },
     "dependencies": {
         "execa": "^1.0.0",
         "is-path-inside": "^2.0.0",

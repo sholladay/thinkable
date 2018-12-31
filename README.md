@@ -1,4 +1,4 @@
-# thinkable [![Build status for Thinkable](https://travis-ci.com/sholladay/thinkable.svg?branch=master "Build Status")](https://circleci.com/gh/sholladay/thinkable "Builds")
+# thinkable [![Build status for Thinkable](https://travis-ci.com/sholladay/thinkable.svg?branch=master "Build Status")](https://travis-ci.com/sholladay/thinkable "Builds")
 
 > Helpers for testing [RethinkDB](https://rethinkdb.com/) apps with [AVA](https://github.com/avajs/ava)
 
