@@ -5,9 +5,4 @@ node_js:
   - 10
 
 addons:
-  apt:
-    packages:
-      - rethinkdb
-    sources:
-      - sourceline: 'deb https://download.rethinkdb.com/apt trusty main'
-        key_url: 'https://download.rethinkdb.com/apt/pubkey.gpg'
+  rethinkdb: '2.3.6'
