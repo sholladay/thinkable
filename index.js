@@ -103,6 +103,7 @@ const init = (seed, option) => {
             }));
         }));
 
+        // TODO: This hack doesn't seem to work anymore on rethinkdb@2.4.0, report or remove.
         r.net.Connection.prototype.DEFAULT_PORT = port;
         t.context.dbPort = port;
     };
