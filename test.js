@@ -58,5 +58,5 @@ test('port is set on context for convenience', async (t) => {
 });
 
 test('driver and context have consistent port', (t) => {
-    t.deepEqual(t.context, { dbPort : r.net.Connection.prototype.DEFAULT_PORT });
+    t.deepEqual(t.context, { dbPort : r.net.DEFAULT_PORT });
 });
