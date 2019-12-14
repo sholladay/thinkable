@@ -31,18 +31,18 @@
         "rethinkdb": "^2.0.0"
     },
     "dependencies": {
-        "execa": "^1.0.0",
-        "is-path-inside": "^2.0.0",
-        "joi": "^14.3.0",
+        "@hapi/joi": "^16.1.8",
+        "execa": "^3.4.0",
+        "is-path-inside": "^3.0.2",
         "mkdirtemp": "^1.1.0",
-        "p-event": "^2.1.0",
-        "rimraf": "^2.6.2"
+        "p-event": "^4.1.0",
+        "rimraf": "^3.0.0"
     },
     "devDependencies": {
-        "ava": "^1.0.0-rc.2",
-        "eslint-config-tidy": "^0.7.0",
+        "ava": "^2.4.0",
+        "eslint-config-tidy": "^0.10.0",
         "rethinkdb": "^2.4.1",
-        "xo": "^0.23.0"
+        "xo": "^0.25.3"
     },
     "keywords": [
         "ava",
@@ -62,15 +62,7 @@
     "xo": {
         "extend": "tidy",
         "rules": {
-            "id-length": [
-                "error",
-                {
-                    "exceptions": [
-                        "r",
-                        "t"
-                    ]
-                }
-            ]
+            "require-atomic-updates": "off"
         }
     }
 }

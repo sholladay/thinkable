@@ -29,7 +29,7 @@ const seed = {
 test.before(init(seed));
 test.after.always(cleanup);
 
-test('basics via default port', async (t) => {
+test('default port can be used to connect', async (t) => {
     const conn = await r.connect();
     const databases = await r.dbList().run(conn);
     t.deepEqual(databases, ['mydb', 'otherdb', 'rethinkdb', 'test']);

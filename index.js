@@ -4,7 +4,7 @@ const os = require('os');
 const fs = require('fs');
 const path = require('path');
 const util = require('util');
-const joi = require('joi');
+const joi = require('@hapi/joi');
 const r = require('rethinkdb');
 const execa = require('execa');
 const pEvent = require('p-event');
@@ -34,8 +34,8 @@ const del = async (filepath) => {
 let cwd;
 let server;
 
-const init = (seed, option) => {
-    const config = joi.attempt({ ...option }, joi.object().required().keys({
+const init = (seed, option = {}) => {
+    const config = joi.attempt(option, joi.object().required().keys({
         cwd      : joi.string().optional(),
         password : joi.string().optional()
     }));
@@ -58,9 +58,7 @@ const init = (seed, option) => {
         if (password) {
             args.push('--initial-password', password);
         }
-        server = execa('rethinkdb', args, {
-            preferLocal : false
-        });
+        server = execa('rethinkdb', args);
         server.on('error', (err) => {
             throw err;
         });
@@ -72,9 +70,9 @@ const init = (seed, option) => {
             filter(chunk) {
                 buffered += chunk.toString('utf8');
                 if (!port) {
-                    const matches = buffered.match(/Listening for client driver connections on port (\d+)/u);
-                    if (matches && matches[1]) {
-                        port = Number.parseInt(matches[1], 10);
+                    const matches = buffered.match(/Listening for client driver connections on port (?<port>\d+)/u);
+                    if (matches && matches.groups.port) {
+                        port = Number.parseInt(matches.groups.port, 10);
                     }
                 }
                 return buffered.includes('Server ready,');
